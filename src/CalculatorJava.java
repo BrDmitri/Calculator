@@ -23,9 +23,9 @@ public class CalculatorJava {
                     try {
                         ParsingExpression parExpr = new ParsingExpression(st);
                         if (parExpr.arabic) {
-                            System.out.println("Результат : " + calc(parExpr.value_1, parExpr.value_2, parExpr.operator));
+                            System.out.println("Результат: " + calc(parExpr.value_1, parExpr.value_2, parExpr.operator));
                         } else {
-                            System.out.println("Результат : " + arabToRoman(calc(parExpr.value_1, parExpr.value_2, parExpr.operator)));
+                            System.out.println("Результат: " + arabToRoman(calc(parExpr.value_1, parExpr.value_2, parExpr.operator)));
                         }
                     } catch (ParExprException e) {
                         System.err.println(e.getMessage());
