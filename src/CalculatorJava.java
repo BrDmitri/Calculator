@@ -27,7 +27,7 @@ public class CalculatorJava {
                         } else {
                             System.out.println("Результат : " + arabToRoman(calc(parExpr.value_1, parExpr.value_2, parExpr.operator)));
                         }
-                    } catch (RomanAndArabic e) {
+                    } catch (ParExprException e) {
                         System.err.println(e.getMessage());
                         break;
                     }
@@ -70,7 +70,7 @@ public class CalculatorJava {
 }
 
 class ParsingExpression {
-    ParsingExpression(String text) throws RomanAndArabic {
+    ParsingExpression(String text) throws ParExprException {
         equation = text;
         romanian();
     }
@@ -81,14 +81,14 @@ class ParsingExpression {
     boolean dataError = false;
     char operator;
 
-    void romanian() throws RomanAndArabic {
+    void romanian() throws ParExprException {
         String[] nums = equation.toUpperCase().split("[+-/*]");
         String romPat = "IVXLCDM";
         if (nums.length != 2) {
-            throw new RomanAndArabic("Вы ввели некорректное выражение");
+            throw new ParExprException("Вы ввели некорректное выражение");
         }
         if (nums[0].trim().charAt(0) == '0' || nums[1].trim().charAt(0) == '0') {
-            throw new RomanAndArabic("Числа на вход от 1 до 10 включительно," +
+            throw new ParExprException("Числа на вход от 1 до 10 включительно," +
                     " вы ввели : " + 0);
         }
         if ((romPat.indexOf(nums[0].trim().charAt(0)) != -1) && (romPat.indexOf(nums[1].trim().charAt(0)) != -1)) {
@@ -98,7 +98,7 @@ class ParsingExpression {
 
         } else if ((romPat.indexOf(nums[0].trim().charAt(0)) != -1) || (romPat.indexOf(nums[1].trim().charAt(0)) != -1)) {
 //            try {
-            throw new RomanAndArabic("Ошибка ввода  одна цифра римская другая арабская");
+            throw new ParExprException("Ошибка ввода  одна цифра римская другая арабская");
             //            } catch (Exception e) {
 //                System.err.println(e.getMessage());
 //                dataError = true;
@@ -111,7 +111,7 @@ class ParsingExpression {
         }
 
         if (!(0 < value_1 && value_1 <= 10) || !(0 < value_2 && value_2 <= 10)) {
-            throw new RomanAndArabic("Числа на вход числа от 1 до 10 включительно," +
+            throw new ParExprException("Числа на вход числа от 1 до 10 включительно," +
                     " вы ввели : " + value_1 + " и " + value_2);
         }
         operator = equation.charAt(nums[0].length());
@@ -156,6 +156,6 @@ class ParsingExpression {
 
     }
 }
-class RomanAndArabic extends Exception {
-    RomanAndArabic(String  name){super(name);}
+class ParExprException extends Exception {
+    ParExprException(String  name){super(name);}
     }
